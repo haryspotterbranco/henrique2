@@ -1,0 +1,95 @@
+# Criando a lista de listas inicial (ID, Nome, Preço)
+produtos = [
+    [1, "Teclado", 150.00],
+    [2, "Mouse", 80.00],
+    [3, "Monitor", 800.00]
+]
+
+while True:
+    print("\n=== MENU DE PRODUTOS ===")
+    print("1. Imprimir os produtos")
+    print("2. Localizar um produto pelo ID")
+    print("3. Remover um produto pelo ID")
+    print("4. Cadastrar um novo produto (Desafio)")
+    print("5. Alterar o preço de um produto (Desafio)")
+    print("0. Sair do programa")
+    
+    opcao = input("Escolha uma opção: ")
+
+    if opcao == '1':
+        # 1. Imprimir os produtos
+        print("\n--- Lista de Produtos ---")
+        if len(produtos) == 0:
+            print("A lista está vazia.")
+        else:
+            for prod in produtos:
+                print(f"ID: {prod[0]} | Nome: {prod[1]} | Preço: R${prod[2]:.2f}")
+        print("-------------------------")
+
+    elif opcao == '2':
+        # 2. Localizar um produto pelo ID
+        id_busca = int(input("\nDigite o ID do produto que deseja localizar: "))
+        encontrado = False
+        
+        for prod in produtos:
+            if prod[0] == id_busca:
+                print(f"Produto Encontrado -> Nome: {prod[1]} | Preço: R${prod[2]:.2f}")
+                encontrado = True
+                break
+                
+        if not encontrado:
+            print("Produto não encontrado.")
+
+    elif opcao == '3':
+        # 3. Remover um produto pelo ID
+        id_remover = int(input("\nDigite o ID do produto para remover: "))
+        removido = False
+        
+        # Usando enumerate para saber a posição (i) exata do item na lista
+        for i, prod in enumerate(produtos):
+            if prod[0] == id_remover:
+                produtos.pop(i) # Remove o item da posição i
+                print(f"Produto '{prod[1]}' removido com sucesso!")
+                removido = True
+                break
+                
+        if not removido:
+            print("Produto não encontrado.")
+            
+        # 4. Imprimir novamente a lista depois da remoção
+        print("\n--- Lista Atualizada ---")
+        for prod in produtos:
+            print(f"ID: {prod[0]} | Nome: {prod[1]} | Preço: R${prod[2]:.2f}")
+
+    elif opcao == '4':
+        # Desafio: Cadastrar um novo produto usando append()
+        novo_id = int(input("\nDigite o ID do novo produto: "))
+        novo_nome = input("Digite o nome do produto: ")
+        novo_preco = float(input("Digite o preço do produto: "))
+        
+        # Adiciona uma nova lista (linha) dentro da lista principal
+        produtos.append([novo_id, novo_nome, novo_preco])
+        print("Produto cadastrado com sucesso!")
+
+    elif opcao == '5':
+        # Desafio: Alterar o preço de um produto
+        id_alterar = int(input("\nDigite o ID do produto que deseja alterar: "))
+        encontrado = False
+        
+        for prod in produtos:
+            if prod[0] == id_alterar:
+                novo_preco = float(input(f"Digite o novo preço para '{prod[1]}': "))
+                prod[2] = novo_preco # Acessa o índice 2 (preço) e atualiza o valor
+                print("Preço alterado com sucesso!")
+                encontrado = True
+                break
+                
+        if not encontrado:
+            print("Produto não encontrado.")
+
+    elif opcao == '0':
+        print("\nSaindo do programa...")
+        break
+
+    else:
+        print("\nOpção inválida! Tente novamente.")
